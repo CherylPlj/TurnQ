@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const navItems = [
   { id: "home", label: "Home" },
   { id: "how-it-works", label: "How it Works" },
@@ -45,9 +47,12 @@ export default function Home() {
               </a>
             ))}
           </nav>
-          <button className="rounded-full bg-[#4f46e5] px-7 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-[#4338ca]">
+          <Link
+            href="/sign-in"
+            className="rounded-full bg-[#4f46e5] px-7 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-[#4338ca]"
+          >
             Log In
-          </button>
+          </Link>
         </div>
       </header>
 
