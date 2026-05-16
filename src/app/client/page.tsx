@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import AuthSuccessBanner from "@/src/components/auth/AuthSuccessBanner";
+import { useClientAuth } from "@/src/contexts/ClientAuthContext";
 import ClientChatbotModal from "../../components/ClientChatbotModal";
 import ClientSidebar from "../../components/ClientSidebar";
 
+function getFirstName(fullName: string) {
+  return fullName.trim().split(/\s+/)[0] || fullName;
+}
+
 export default function ClientHomePage() {
+  const { user } = useClientAuth();
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const displayName = user ? getFirstName(user.fullName) : "";
 
   const services = ["Business Permit", "Document Request", "Payment"];
 
@@ -16,6 +24,7 @@ export default function ClientHomePage() {
 
       <main className="px-4 pb-10 pt-20 md:ml-20 md:px-6 md:pt-8">
         <div className="mx-auto max-w-7xl space-y-6">
+          <AuthSuccessBanner />
           <div className="flex items-center justify-end">
             <button
               type="button"
@@ -26,7 +35,9 @@ export default function ClientHomePage() {
           </div>
 
           <header className="space-y-2">
-            <h1 className="text-5xl font-black">Welcome, Juan!</h1>
+            <h1 className="text-5xl font-black">
+              Welcome{displayName ? `, ${displayName}` : ""}!
+            </h1>
             <p className="text-2xl text-slate-700">We are here to serve you better.</p>
           </header>
 

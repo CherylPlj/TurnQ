@@ -4,7 +4,10 @@ import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AuthSuccessBanner from "@/src/components/auth/AuthSuccessBanner";
+import LogoutConfirmDialog from "@/src/components/auth/LogoutConfirmDialog";
 import { useAdminAuth } from "@/src/contexts/AdminAuthContext";
+import { useLogoutConfirm } from "@/src/hooks/use-logout-confirm";
 
 type NavItem = {
   label: string;
@@ -62,6 +65,8 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
   const { logout } = useAdminAuth();
+  const { open, isLoggingOut, requestLogout, cancelLogout, confirmLogout } =
+    useLogoutConfirm(logout);
 
   const sidebarWidth = useMemo(
     () => (isOpen ? EXPANDED_WIDTH : COLLAPSED_WIDTH),
@@ -70,6 +75,12 @@ export default function AdminShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#ececec] text-slate-900">
+      <LogoutConfirmDialog
+        open={open}
+        isLoggingOut={isLoggingOut}
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
       <aside
         className="fixed left-0 top-0 z-40 h-screen overflow-hidden border-r border-white/20 bg-gradient-to-b from-[#4f46e5] to-[#7c3aed] text-white shadow-xl transition-[width] duration-300"
         style={{ width: sidebarWidth }}
@@ -115,7 +126,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
           <div className="p-3">
             <button
               type="button"
-              onClick={logout}
+              onClick={requestLogout}
               className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-indigo-50 transition hover:bg-white/15"
             >
               <MenuIcon />
@@ -131,7 +142,10 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         className="min-h-screen transition-[margin-left] duration-300"
         style={{ marginLeft: sidebarWidth }}
       >
-        <main className="h-screen overflow-y-auto p-8">{children}</main>
+        <main className="h-screen overflow-y-auto p-8">
+          <AuthSuccessBanner />
+          {children}
+        </main>
       </div>
     </div>
   );

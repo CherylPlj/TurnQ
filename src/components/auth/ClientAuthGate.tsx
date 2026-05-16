@@ -3,17 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 import { useSessionGuard } from "@/src/hooks/use-session-guard";
-import { useAdminAuth } from "@/src/contexts/AdminAuthContext";
+import { useClientAuth } from "@/src/contexts/ClientAuthContext";
 
-export default function AdminAuthGate({ children }: { children: ReactNode }) {
+export default function ClientAuthGate({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const { isAuthenticated, isReady } = useAdminAuth();
+  const { isAuthenticated, isReady } = useClientAuth();
 
-  useSessionGuard("admin");
+  useSessionGuard("client");
 
   useEffect(() => {
     if (isReady && !isAuthenticated) {
-      router.replace("/sign-in?next=/admin");
+      router.replace("/sign-in?next=/client");
     }
   }, [isReady, isAuthenticated, router]);
 

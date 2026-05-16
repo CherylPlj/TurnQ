@@ -15,9 +15,9 @@ import {
   type PublicUser,
 } from "@/src/lib/auth/client";
 import { performLogout } from "@/src/lib/auth/logout";
-import { isAdminRole } from "@/src/lib/auth/roles";
+import { isClientRole } from "@/src/lib/auth/roles";
 
-type AdminAuthContextValue = {
+type ClientAuthContextValue = {
   user: PublicUser | null;
   isAuthenticated: boolean;
   isReady: boolean;
@@ -25,9 +25,9 @@ type AdminAuthContextValue = {
   refreshSession: () => Promise<void>;
 };
 
-const AdminAuthContext = createContext<AdminAuthContextValue | null>(null);
+const ClientAuthContext = createContext<ClientAuthContextValue | null>(null);
 
-export function AdminAuthProvider({ children }: { children: ReactNode }) {
+export function ClientAuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [user, setUser] = useState<PublicUser | null>(null);
   const [isReady, setIsReady] = useState(false);
@@ -35,7 +35,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const refreshSession = useCallback(async () => {
     const currentUser = await fetchCurrentUser();
 
-    if (currentUser && isAdminRole(currentUser.role)) {
+    if (currentUser && isClientRole(currentUser.role)) {
       setUser(currentUser);
       return;
     }
@@ -48,9 +48,9 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   }, [refreshSession]);
 
   const logout = useCallback(async () => {
-    await performLogout("/sign-in?next=/admin&success=signed-out");
+    await performLogout("/sign-in?success=signed-out");
     setUser(null);
-    router.replace("/sign-in?next=/admin&success=signed-out");
+    router.replace("/sign-in?success=signed-out");
     router.refresh();
   }, [router]);
 
@@ -66,15 +66,15 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <AdminAuthContext.Provider value={value}>{children}</AdminAuthContext.Provider>
+    <ClientAuthContext.Provider value={value}>{children}</ClientAuthContext.Provider>
   );
 }
 
-export function useAdminAuth() {
-  const context = useContext(AdminAuthContext);
+export function useClientAuth() {
+  const context = useContext(ClientAuthContext);
 
   if (!context) {
-    throw new Error("useAdminAuth must be used within AdminAuthProvider");
+    throw new Error("useClientAuth must be used within ClientAuthProvider");
   }
 
   return context;

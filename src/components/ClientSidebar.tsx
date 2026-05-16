@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import LogoutConfirmDialog from "@/src/components/auth/LogoutConfirmDialog";
+import { useClientAuth } from "@/src/contexts/ClientAuthContext";
+import { useLogoutConfirm } from "@/src/hooks/use-logout-confirm";
 
 type SidebarItem = {
   label: string;
@@ -23,17 +25,25 @@ type ClientSidebarProps = {
 };
 
 export default function ClientSidebar({ activeLabel = "Home" }: ClientSidebarProps) {
-  const router = useRouter();
+  const { logout } = useClientAuth();
+  const { open, isLoggingOut, requestLogout, cancelLogout, confirmLogout } =
+    useLogoutConfirm(logout);
   const [desktopOpen, setDesktopOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  function handleLogout() {
+  function handleLogoutClick() {
     setMobileOpen(false);
-    router.push("/");
+    requestLogout();
   }
 
   return (
     <>
+      <LogoutConfirmDialog
+        open={open}
+        isLoggingOut={isLoggingOut}
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
       <button
         type="button"
         aria-label="Open sidebar menu"
@@ -84,7 +94,7 @@ export default function ClientSidebar({ activeLabel = "Home" }: ClientSidebarPro
         <div className="absolute bottom-6 left-4 right-4">
           <button
             type="button"
-            onClick={handleLogout}
+            onClick={handleLogoutClick}
             className="w-full rounded-xl border border-white/30 py-3 text-left text-base font-semibold transition hover:bg-white/15"
           >
             <span className="pl-4">Log Out</span>
@@ -158,7 +168,7 @@ export default function ClientSidebar({ activeLabel = "Home" }: ClientSidebarPro
         <div className="p-3">
           <button
             type="button"
-            onClick={handleLogout}
+            onClick={handleLogoutClick}
             className={`w-full rounded-xl border border-white/30 py-3 text-left transition hover:bg-white/15 ${
               desktopOpen ? "px-4" : "px-0 text-center"
             }`}

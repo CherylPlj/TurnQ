@@ -1,7 +1,19 @@
 import Image from "next/image";
-import Link from "next/link";
+import AuthSuccessBanner from "@/src/components/auth/AuthSuccessBanner";
+import ClientSignInForm from "@/src/components/auth/ClientSignInForm";
 
-export default function SignInPage() {
+type SignInPageProps = {
+  searchParams: Promise<{ next?: string }>;
+};
+
+export default async function SignInPage({ searchParams }: SignInPageProps) {
+  const params = await searchParams;
+  const nextParam = params.next ?? "";
+  const nextPath =
+    nextParam.startsWith("/client") || nextParam.startsWith("/admin")
+      ? nextParam
+      : "/client";
+
   return (
     <main className="min-h-screen bg-[#f3f3f6] p-3 sm:p-6">
       <section className="mx-auto grid min-h-[calc(100vh-1.5rem)] w-full max-w-7xl overflow-hidden rounded-2xl bg-white shadow-lg md:min-h-[680px] md:grid-cols-2">
@@ -43,61 +55,9 @@ export default function SignInPage() {
               <p className="text-lg text-slate-600">Log in to your account</p>
             </div>
 
-            <form className="space-y-5">
-              <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="text-sm font-semibold text-slate-700"
-                >
-                  Enter email *
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="sam@gmail.com"
-                  className="w-full rounded-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none ring-indigo-200 transition focus:ring-2"
-                />
-              </div>
+            <AuthSuccessBanner />
 
-              <div className="space-y-2">
-                <label
-                  htmlFor="password"
-                  className="text-sm font-semibold text-slate-700"
-                >
-                  Enter password *
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="********"
-                  className="w-full rounded-full border border-slate-300 bg-white px-4 py-3 text-base text-slate-900 outline-none ring-indigo-200 transition focus:ring-2"
-                />
-              </div>
-
-              <button
-                type="button"
-                className="text-sm font-medium text-slate-500 transition hover:text-[#4f46e5]"
-              >
-                Forgot Password?
-              </button>
-
-              <button
-                type="submit"
-                className="w-full rounded-full bg-[#4f46e5] py-3 text-base font-semibold text-white transition hover:bg-[#4338ca]"
-              >
-                Log In
-              </button>
-            </form>
-
-            <p className="text-center text-base text-slate-600">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/sign-up"
-                className="font-bold text-[#4f46e5] hover:text-[#4338ca]"
-              >
-                Sign Up.
-              </Link>
-            </p>
+            <ClientSignInForm idPrefix="sign-in-page" nextPath={nextPath} />
           </div>
         </div>
       </section>
