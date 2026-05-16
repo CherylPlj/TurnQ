@@ -44,7 +44,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(() => {
     sessionStorage.removeItem(AUTH_STORAGE_KEY);
     setIsAuthenticated(false);
-    router.push("/sign-in");
+    router.push("/");
   }, [router]);
 
   const login = useCallback(() => {

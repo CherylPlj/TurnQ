@@ -1,6 +1,28 @@
+"use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, type FormEvent } from "react";
+import TermsAgreementField from "@/src/components/auth/TermsAgreementField";
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!agreedToTerms) {
+      setTermsError("You must agree to the terms and conditions to sign up.");
+      return;
+    }
+
+    setTermsError("");
+    router.push("/sign-in");
+  }
+
   return (
     <main className="min-h-screen bg-[#f3f3f6] p-3 sm:p-6">
       <section className="mx-auto grid min-h-[calc(100vh-1.5rem)] w-full max-w-7xl overflow-hidden rounded-2xl bg-white shadow-lg md:min-h-[680px] md:grid-cols-2">
@@ -28,9 +50,13 @@ export default function SignUpPage() {
               <p className="text-5xl font-black text-[#4f46e5]">
                 Turn<span className="text-cyan-400">Q</span>
               </p>
-              <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-                Tultechi
-              </span>
+              <Image
+                src="/kardesia.png"
+                alt="Kardesia Solutions, Inc."
+                width={120}
+                height={48}
+                className="h-12 w-auto max-w-[140px] object-contain object-right"
+              />
             </div>
 
             <div className="space-y-2">
@@ -38,7 +64,7 @@ export default function SignUpPage() {
               <p className="text-lg text-slate-600">Create an account</p>
             </div>
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label
                   htmlFor="email"
@@ -84,10 +110,19 @@ export default function SignUpPage() {
                 />
               </div>
 
-              <label className="flex items-center gap-3 text-sm text-slate-600">
-                <input type="checkbox" className="h-4 w-4 rounded border-slate-300" />
-                I agree with the terms and conditions.
-              </label>
+              <TermsAgreementField
+                checkboxId="sign-up-page-terms"
+                checked={agreedToTerms}
+                onCheckedChange={(checked) => {
+                  setAgreedToTerms(checked);
+                  if (checked) {
+                    setTermsError("");
+                  }
+                }}
+              />
+              {termsError ? (
+                <p className="text-sm font-medium text-red-600">{termsError}</p>
+              ) : null}
 
               <button
                 type="submit"

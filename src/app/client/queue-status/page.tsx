@@ -1,9 +1,25 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ClientSidebar from "../../../components/ClientSidebar";
 
-export default function QueueStatusPage() {
+function QueueStatusFallback() {
+  return (
+    <div className="min-h-screen bg-[#f1f1f4] text-slate-900">
+      <ClientSidebar activeLabel="Queue Status" />
+      <main className="px-4 pb-10 pt-20 md:ml-20 md:px-8 md:pt-8">
+        <div className="mx-auto max-w-3xl animate-pulse space-y-5 rounded-3xl bg-white p-6 shadow">
+          <div className="h-10 rounded-xl bg-slate-200" />
+          <div className="h-40 rounded-3xl bg-slate-200" />
+          <div className="mx-auto h-64 w-64 rounded-full bg-slate-200" />
+        </div>
+      </main>
+    </div>
+  );
+}
+
+function QueueStatusContent() {
   const searchParams = useSearchParams();
   const queueNumber = searchParams.get("queue") ?? "A - 042";
   const linePosition = Number(searchParams.get("position") ?? "7");
@@ -74,5 +90,13 @@ export default function QueueStatusPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function QueueStatusPage() {
+  return (
+    <Suspense fallback={<QueueStatusFallback />}>
+      <QueueStatusContent />
+    </Suspense>
   );
 }

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAdminAuth } from "@/src/contexts/AdminAuthContext";
 
 type NavItem = {
   label: string;
@@ -60,6 +61,7 @@ function DotIcon() {
 export default function AdminShell({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);
   const pathname = usePathname();
+  const { logout } = useAdminAuth();
 
   const sidebarWidth = useMemo(
     () => (isOpen ? EXPANDED_WIDTH : COLLAPSED_WIDTH),
@@ -113,6 +115,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
           <div className="p-3">
             <button
               type="button"
+              onClick={logout}
               className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-indigo-50 transition hover:bg-white/15"
             >
               <MenuIcon />

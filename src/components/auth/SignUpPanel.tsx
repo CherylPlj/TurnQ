@@ -2,14 +2,24 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import AuthPanelHeader from "@/src/components/auth/AuthPanelHeader";
+import TermsAgreementField from "@/src/components/auth/TermsAgreementField";
 
 export default function SignUpPanel() {
   const router = useRouter();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (!agreedToTerms) {
+      setTermsError("You must agree to the terms and conditions to sign up.");
+      return;
+    }
+
+    setTermsError("");
     router.push("/sign-in");
   }
 
@@ -62,10 +72,19 @@ export default function SignUpPanel() {
           />
         </div>
 
-        <label className="flex items-center gap-3 text-sm text-slate-600">
-          <input type="checkbox" className="h-4 w-4 rounded border-slate-300" />
-          I agree with the terms and conditions.
-        </label>
+        <TermsAgreementField
+          checkboxId="sign-up-terms"
+          checked={agreedToTerms}
+          onCheckedChange={(checked) => {
+            setAgreedToTerms(checked);
+            if (checked) {
+              setTermsError("");
+            }
+          }}
+        />
+        {termsError ? (
+          <p className="text-sm font-medium text-red-600">{termsError}</p>
+        ) : null}
 
         <button
           type="submit"

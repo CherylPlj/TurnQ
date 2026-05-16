@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function SignInPage() {
@@ -28,9 +29,13 @@ export default function SignInPage() {
               <p className="text-5xl font-black text-[#4f46e5]">
                 Turn<span className="text-cyan-400">Q</span>
               </p>
-              <span className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-                Tultechi
-              </span>
+              <Image
+                src="/kardesia.png"
+                alt="Kardesia Solutions, Inc."
+                width={120}
+                height={48}
+                className="h-12 w-auto max-w-[140px] object-contain object-right"
+              />
             </div>
 
             <div className="space-y-2">

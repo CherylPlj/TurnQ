@@ -156,8 +156,8 @@ export default function AdminDashboardPage() {
           <div>
             <p className="text-sm font-semibold text-slate-500">Upcoming</p>
             <div className="mt-2 space-y-2">
-              {upcoming.map((item) => (
-                <p key={item} className="text-sm text-slate-700">
+              {upcoming.map((item, index) => (
+                <p key={`${item}-${index}`} className="text-sm text-slate-700">
                   {item}
                 </p>
               ))}

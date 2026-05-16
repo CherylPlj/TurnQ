@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const navItems = [
@@ -33,7 +34,18 @@ export default function Home() {
     <div className="min-h-screen bg-[#f5f5f8] text-slate-900">
       <header className="sticky top-0 z-30 border-b border-[#e5e7eb] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#home" className="text-3xl font-black text-[#4f46e5]">
+          <a
+            href="#home"
+            className="flex items-center gap-2 text-3xl font-black text-[#4f46e5]"
+          >
+            <Image
+              src="/turnqLogo.png"
+              alt="TurnQ logo"
+              width={40}
+              height={40}
+              className="h-9 w-9 object-contain"
+              priority
+            />
             TurnQ
           </a>
           <nav className="hidden items-center gap-8 md:flex">
@@ -67,7 +79,7 @@ export default function Home() {
               REDEFINING THE WAIT
             </h1>
             <p className="max-w-xl text-lg leading-8 text-slate-700">
-              At Tultechi, we believe your time is valuable. TurnQ is a smart
+              At Kardesia, we believe your time is valuable. TurnQ is a smart
               queue management system designed to replace outdated, manual lines
               with a transparent and efficient digital solution. Whether you are
               visiting a government office, a school, or a local clinic, we
@@ -116,13 +128,19 @@ export default function Home() {
           id="about"
           className="grid scroll-mt-24 gap-8 py-6 md:grid-cols-2 md:items-center"
         >
-          <div className="flex h-96 items-center justify-center rounded-3xl border border-dashed border-[#4f46e5] bg-white p-8 text-center text-2xl font-bold text-[#4f46e5]">
-            TULTECHI LOGO
+          <div className="flex h-96 items-center justify-center rounded-3xl border border-[#4f46e5]/20 bg-white p-8">
+            <Image
+              src="/kardesia.png"
+              alt="Kardesia Solutions, Inc."
+              width={280}
+              height={280}
+              className="h-64 w-64 object-contain"
+            />
           </div>
           <div className="space-y-7">
             <h2 className="text-5xl font-bold">About Us</h2>
             <p className="text-lg leading-8 text-slate-700">
-              <span className="font-semibold text-[#4f46e5]">Tultechi</span> is
+              <span className="font-semibold text-[#4f46e5]">Kardesia</span> is
               a tech startup founded by 4th-year IT students from the
               Polytechnic University of the Philippines - Quezon City (PUPQC).
             </p>
@@ -133,7 +151,7 @@ export default function Home() {
               numerous app developments.
             </p>
             <p className="text-lg leading-8 text-slate-700">
-              At Tultechi, we value{" "}
+              At Kardesia, we value{" "}
               <span className="text-[#4f46e5]">
                 collaboration, resilience, and a shared commitment
               </span>{" "}
@@ -150,15 +168,21 @@ export default function Home() {
           <div className="space-y-4 text-center">
             <h2 className="text-5xl font-bold">Why Choose Us</h2>
             <p className="mx-auto max-w-4xl text-2xl text-slate-700">
-              Tultechi delivers innovative, reliable, and user-focused tech
+              Kardesia delivers innovative, reliable, and user-focused tech
               solutions that solve real-world problems efficiently.
             </p>
           </div>
         </section>
 
         <section className="grid gap-10 rounded-3xl bg-white p-10 shadow-sm ring-1 ring-slate-200 md:grid-cols-2">
-          <div className="flex h-96 items-center justify-center rounded-2xl border border-dashed border-[#4f46e5] bg-[#f8f8ff] text-center text-2xl font-bold text-[#4f46e5]">
-            TULTECHI BRAND IMAGE
+          <div className="flex h-96 items-center justify-center rounded-2xl border border-[#4f46e5]/20 bg-[#f8f8ff] p-8">
+            <Image
+              src="/kardesia.png"
+              alt="Kardesia Solutions, Inc."
+              width={240}
+              height={240}
+              className="h-56 w-56 object-contain"
+            />
           </div>
           <div className="space-y-8">
             <div>
@@ -166,7 +190,7 @@ export default function Home() {
                 Customer Support
               </h3>
               <p className="text-lg leading-8 text-slate-700">
-                Email: tultechi@gmail.com
+                Email: kardesia@gmail.com
                 <br />
                 Phone: 0910-101-0101
               </p>
@@ -194,7 +218,16 @@ export default function Home() {
       <footer className="bg-[#4f46e5] px-6 py-14 text-white">
         <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
           <div className="space-y-4">
-            <p className="text-2xl font-black">TULTECHI</p>
+            <div className="flex items-center gap-3">
+              <Image
+                src="/kardesia.png"
+                alt="Kardesia Solutions, Inc."
+                width={72}
+                height={72}
+                className="h-16 w-16 object-contain"
+              />
+              <p className="text-2xl font-black">KARDESIA</p>
+            </div>
             <p className="max-w-xs text-base text-indigo-100">
               Innovative solutions for faster, fairer queueing experiences.
             </p>
@@ -240,7 +273,7 @@ export default function Home() {
           </div>
         </div>
         <p className="mx-auto mt-12 max-w-6xl border-t border-white/25 pt-4 text-center text-sm text-indigo-100">
-          2026 TULTECHI. All rights reserved.
+          2026 Kardesia Solutions, Inc. All rights reserved.
         </p>
       </footer>
     </div>
