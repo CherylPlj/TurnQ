@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ClientChatbotModal from "../../components/ClientChatbotModal";
+import ClientNotificationButton from "../../components/ClientNotificationButton";
 import ClientSidebar from "../../components/ClientSidebar";
 
 export default function ClientHomePage() {
@@ -17,12 +18,7 @@ export default function ClientHomePage() {
       <main className="px-4 pb-10 pt-20 md:ml-20 md:px-6 md:pt-8">
         <div className="mx-auto max-w-7xl space-y-6">
           <div className="flex items-center justify-end">
-            <button
-              type="button"
-              className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-2xl shadow"
-            >
-              🔔
-            </button>
+            <ClientNotificationButton />
           </div>
 
           <header className="space-y-2">

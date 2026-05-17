@@ -6,14 +6,14 @@ export default function AuthPanelHeader() {
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex flex-col items-start gap-2">
-        {/* <Image
+        <Image
           src="/turnqLogo.png"
           alt="TurnQ logo"
           width={80}
           height={80}
           className={logoClassName}
           priority
-        /> */}
+        />
         <p className="text-4xl font-black text-[#4f46e5] sm:text-5xl">
           Turn<span className="text-cyan-400">Q</span>
         </p>

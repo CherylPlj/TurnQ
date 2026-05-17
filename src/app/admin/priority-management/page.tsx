@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 const classifications = [
-  { code: "PWD", label: "Person with Disability", icon: "♿" },
-  { code: "PWD", label: "60 years & above", icon: "🧍" },
-  { code: "Pregnant", label: "Expecting Mother", icon: "🤰" },
+  { code: "PWD", label: "Person with Disability", image: "/disabled.png" },
+  { code: "Senior Citizen", label: "60 years & above", image: "/senior.png" },
+  { code: "Pregnant", label: "Expecting Mother", image: "/pregnant.png" },
 ];
 
 const previewRows = [
@@ -63,7 +65,13 @@ export default function PriorityManagementPage() {
                 key={`${item.code}-${index}`}
                 className="rounded-2xl border-2 border-[#6d48d7] px-3 py-4 text-center"
               >
-                <p className="text-5xl">{item.icon}</p>
+                <Image
+                  src={item.image}
+                  alt={item.label}
+                  width={64}
+                  height={64}
+                  className="mx-auto h-16 w-16 object-contain"
+                />
                 <p className="mt-2 text-sm font-semibold text-slate-800">{item.code}</p>
                 <p className="text-sm text-slate-600">{item.label}</p>
               </div>

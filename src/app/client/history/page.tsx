@@ -1,5 +1,6 @@
 "use client";
 
+import ClientNotificationButton from "../../../components/ClientNotificationButton";
 import ClientSidebar from "../../../components/ClientSidebar";
 
 const historyItems = Array.from({ length: 4 }, (_, index) => ({
@@ -24,9 +25,7 @@ export default function ClientHistoryPage() {
               ☰
             </button>
             <h1 className="text-4xl font-black">History</h1>
-            <button className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-2xl shadow">
-              🔔
-            </button>
+            <ClientNotificationButton />
           </div>
 
           <div className="mb-6 grid grid-cols-2 border-b-2 border-[#8e59ff] text-center">

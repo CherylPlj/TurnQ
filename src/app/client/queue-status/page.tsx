@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import ClientNotificationButton from "../../../components/ClientNotificationButton";
 import ClientSidebar from "../../../components/ClientSidebar";
 
 export default function QueueStatusPage() {
@@ -22,9 +23,7 @@ export default function QueueStatusPage() {
               ☰
             </button>
             <h1 className="text-4xl font-black">Queue Status</h1>
-            <button className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-2xl shadow">
-              🔔
-            </button>
+            <ClientNotificationButton />
           </div>
 
           <section className="rounded-3xl border-4 border-[#7c4be9] px-5 py-6 text-center">

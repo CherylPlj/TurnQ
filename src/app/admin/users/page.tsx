@@ -1,3 +1,6 @@
+import type { LucideIcon } from "lucide-react";
+import { ShieldUser, User, UserStar } from "lucide-react";
+
 const adminAccounts = [
   { name: "Admin User", email: "admin.turnq@email.com", role: "Super Admin", status: "Active" },
   { name: "Manager 1", email: "manager.turnq@email.com", role: "Administration", status: "Active" },
@@ -5,21 +8,25 @@ const adminAccounts = [
   { name: "Staff Two", email: "staff.two@email.com", role: "Staff", status: "Active" },
 ];
 
-const roles = [
+const roles: {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+}[] = [
   {
     title: "Super Admin",
     description: "Full access to all modules and settings.",
-    icon: "🛡",
+    icon: ShieldUser,
   },
   {
     title: "Administrator",
     description: "Manage queue, users, services and reports",
-    icon: "⚙",
+    icon: UserStar,
   },
   {
     title: "Staff",
     description: "Operate queue and view basic reports",
-    icon: "👤",
+    icon: User,
   },
 ];
 
@@ -103,20 +110,24 @@ export default function UserManagementPage() {
       <article className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 xl:max-w-[64%]">
         <h2 className="text-2xl font-bold text-slate-800">Roles & Permissions</h2>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {roles.map((role) => (
-            <div
-              key={role.title}
-              className="rounded-2xl border-2 border-[#5B4FD7] px-4 py-4 shadow-[0_3px_0_0_rgba(91,79,215,0.2)]"
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-3xl leading-none">{role.icon}</span>
-                <div>
-                  <p className="text-xl font-bold text-slate-800">{role.title}</p>
-                  <p className="mt-1 text-sm text-slate-600">{role.description}</p>
+          {roles.map((role) => {
+            const Icon = role.icon;
+
+            return (
+              <div
+                key={role.title}
+                className="rounded-2xl border-2 border-[#5B4FD7] px-4 py-4 shadow-[0_3px_0_0_rgba(91,79,215,0.2)]"
+              >
+                <div className="flex items-start gap-3">
+                  <Icon className="h-8 w-8 shrink-0 text-[#5B4FD7]" aria-hidden />
+                  <div>
+                    <p className="text-xl font-bold text-slate-800">{role.title}</p>
+                    <p className="mt-1 text-sm text-slate-600">{role.description}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </article>
     </section>

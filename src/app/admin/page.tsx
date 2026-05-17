@@ -1,33 +1,59 @@
-const stats = [
+import type { LucideIcon } from "lucide-react";
+import {
+  AlertCircle,
+  Ban,
+  Clock,
+  SquareCheck,
+  Users,
+} from "lucide-react";
+
+const stats: {
+  label: string;
+  value: string;
+  note: string;
+  color: string;
+  icon: LucideIcon;
+  iconColor: string;
+}[] = [
   {
     label: "Total people in queue",
     value: "48",
     note: "Live now",
     color: "border-[#5B4FD7]",
+    icon: Users,
+    iconColor: "text-[#5B4FD7]",
   },
   {
     label: "Average waiting time",
     value: "18 mins",
     note: "Today",
     color: "border-[#7C4DFF]",
+    icon: Clock,
+    iconColor: "text-[#7C4DFF]",
   },
   {
     label: "Served today",
     value: "128",
     note: "Completed",
     color: "border-[#29C6D7]",
+    icon: SquareCheck,
+    iconColor: "text-[#29C6D7]",
   },
   {
     label: "Missed/ Cancelled",
     value: "8",
     note: "Today",
     color: "border-[#D89A11]",
+    icon: Ban,
+    iconColor: "text-[#D89A11]",
   },
   {
     label: "System Alert",
     value: "2",
     note: "Requires attention",
     color: "border-[#E45050]",
+    icon: AlertCircle,
+    iconColor: "text-[#E45050]",
   },
 ];
 
@@ -75,34 +101,36 @@ function statusPill(status: string) {
 export default function AdminDashboardPage() {
   return (
     <section className="space-y-5">
-      <header className="sticky top-0 z-20 -mx-8 border-b border-slate-200 bg-white/95 px-8 py-4 backdrop-blur">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <h1 className="text-4xl font-black tracking-tight text-slate-800">
-            Dashboard
-          </h1>
-          <div className="text-right">
-            <p className="text-sm text-slate-400">Apr 30, 2026</p>
-            <p className="text-2xl font-bold text-slate-700">10:00 AM</p>
-          </div>
-        </div>
-      </header>
-
       <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
         <h2 className="px-2 text-4xl font-extrabold uppercase tracking-tight text-slate-800">
-          Company Name Natin (Sample)
+          Kardesia Solutions, Inc.
         </h2>
 
-        <div className="mt-6 grid gap-3 xl:grid-cols-5">
-          {stats.map((item) => (
-            <article
-              key={item.label}
-              className={`rounded-2xl border-2 bg-white px-4 py-3 ${item.color}`}
-            >
-              <p className="text-xs font-medium text-slate-600">{item.label}</p>
-              <p className="mt-1 text-4xl font-bold text-slate-800">{item.value}</p>
-              <p className="text-xs text-slate-500">{item.note}</p>
-            </article>
-          ))}
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {stats.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <article
+                key={item.label}
+                className={`rounded-2xl border-2 bg-white px-4 py-3 ${item.color}`}
+              >
+                <div className="flex items-center gap-3">
+                  <Icon
+                    className={`h-9 w-9 shrink-0 stroke-[1.75] ${item.iconColor}`}
+                    aria-hidden
+                  />
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium text-slate-600">{item.label}</p>
+                    <p className="mt-1 text-4xl font-bold leading-none text-slate-800">
+                      {item.value}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500">{item.note}</p>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 

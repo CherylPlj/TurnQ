@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ClientNotificationButton from "../../../components/ClientNotificationButton";
 import ClientSidebar from "../../../components/ClientSidebar";
 
 export default function ClientSettingsPage() {
@@ -18,9 +19,7 @@ export default function ClientSettingsPage() {
               ☰
             </button>
             <h1 className="text-4xl font-black">Settings</h1>
-            <button className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-2xl shadow">
-              🔔
-            </button>
+            <ClientNotificationButton />
           </div>
 
           <section className="space-y-5">
